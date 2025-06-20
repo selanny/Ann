@@ -1632,9 +1632,33 @@ button:active {
   .delay-controls input {
     width: 50px;
   }
-</style>
+
+/* Для телефонов */
+@media (max-width: 768px) {
+    .container {
+        width: 95%;
+        padding: 10px;
+    }
+    
+    h1 {
+        font-size: 6vw;
+    }
+    
+    img {
+        width: 100%;
+        height: auto;
+    }
+}
+
+/* Для планшетов */
+@media (min-width: 769px) and (max-width: 1024px) {
+    .container {
+        width: 80%;
+    }
+}
 
 </style>
+
 
 </style>
 
@@ -1646,6 +1670,8 @@ button:active {
 
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
 </head>
 
