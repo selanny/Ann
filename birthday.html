@@ -1643,7 +1643,7 @@ button:active {
 
   <script src="https://unpkg.com/typewriter-effect@latest/dist/core.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   
@@ -2634,34 +2634,44 @@ const birthdayVideo = document.getElementById('birthdayVideo');*/
 // Функция для показа окошка (исправленная версия)
 /* Модифицированная функция showMessageWindow*/
 function showMessageWindow() {
-  // Сначала убедимся, что элементы существуют
-  console.log("showMessageWindow started"); // Добавьте эту строку
-  const messageCard = document.getElementById('messageCard');
-  const cardContent = document.getElementById('cardContent');
-  const blackScreen = document.getElementById('blackScreen');
-  const blackScreenText = document.getElementById('blackScreenText');
-  console.log("Elements:", {messageCard, blackScreen, blackScreenText}); // И эту
-  const videoContainer = document.getElementById('videoContainer');
-  const birthdayVideo = document.getElementById('birthdayVideo');
-
-  if (!messageCard || !cardContent || !blackScreen || !blackScreenText || !videoContainer) {
-    console.error("Ошибка: не найдены необходимые элементы HTML");
-    return;
+  // Создаем элементы, если их нет
+  let blackScreen = document.getElementById('blackScreen');
+  let blackScreenText = document.getElementById('blackScreenText');
+  
+  if (!blackScreen) {
+    blackScreen = document.createElement('div');
+    blackScreen.id = 'blackScreen';
+    blackScreen.className = 'black-screen';
+    document.body.appendChild(blackScreen);
+  }
+  
+  if (!blackScreenText) {
+    blackScreenText = document.createElement('div');
+    blackScreenText.id = 'blackScreenText';
+    blackScreenText.className = 'black-screen-text';
+    blackScreen.appendChild(blackScreenText);
   }
 
-  // Показываем окошко
-  messageCard.style.display = 'block';
-  messageCard.classList.add('tilt-in-top-1');
+  // Показываем черный экран
+  blackScreen.style.display = 'block';
+  setTimeout(() => {
+    blackScreen.classList.add('show');
+    
+    // Печатаем текст
+    const typewriter = new Typewriter(blackScreenText, {
+      loop: false,
+      delay: 50,
+      cursor: ''
+    });
+    
+    typewriter
+      .typeString('Так вот куда он бежал...')
+      .callFunction(() => {
+        blackScreenText.classList.add('show');
+      })
+      .start();
+  }, 50);
 
-  // Очищаем предыдущий текст
-  cardContent.innerHTML = '';
-
-  // Анимация печати текста
-  const typewriter = new Typewriter(cardContent, {
-    loop: false,
-    delay: 50,
-    cursor: ''
-  });
 
   typewriter
     .typeString('Ой, кажется<br>кто-то пришел...')
@@ -2743,6 +2753,10 @@ function showMessageWindow() {
     <source src="с др.MOV" type="video/mp4">
     Ваш браузер не поддерживает видео тег.
   </video>
+</div>
+
+<div class="black-screen" id="blackScreen">
+  <div class="black-screen-text" id="blackScreenText"></div>
 </div>
 
 
